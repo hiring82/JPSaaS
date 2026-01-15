@@ -68,7 +68,7 @@ export default function ForgotPasswordForm() {
               >
                 別のメールアドレスで試す
               </button>
-              <Link href="/sign-in" className="block w-full btn btn-primary">
+              <Link href="/login" className="block w-full btn btn-primary">
                 ログインページに戻る
               </Link>
             </div>
@@ -122,7 +122,7 @@ export default function ForgotPasswordForm() {
         <p className="text-center text-sm text-gray-600">
           パスワードを思い出しましたか？{" "}
           <Link
-            href="/sign-in"
+            href="/login"
             className="text-primary-600 hover:text-primary-500 font-medium"
           >
             ログインする

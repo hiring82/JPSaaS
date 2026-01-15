@@ -102,7 +102,7 @@ export default async function HomePage() {
             <HeroSearch />
             <p className="mt-4 text-sm text-primary-200">
               出品者ですか？{" "}
-              <Link href="/sign-up" className="text-white underline underline-offset-2 hover:text-primary-100">
+              <Link href="/signup" className="text-white underline underline-offset-2 hover:text-primary-100">
                 無料で出品を始める →
               </Link>
             </p>
@@ -276,7 +276,7 @@ export default async function HomePage() {
                 日本のSaaSマーケットで、あなたのプロダクトを多くの企業にアピールしましょう。
               </p>
               <Link
-                href="/sign-up"
+                href="/signup"
                 className="inline-flex items-center gap-2 bg-primary-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-primary-500 transition-colors"
               >
                 無料で出品を始める

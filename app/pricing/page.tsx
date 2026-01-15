@@ -124,7 +124,7 @@ export default async function PricingPage() {
               ? plan.id === "free"
                 ? "/dashboard"
                 : "/dashboard/settings?tab=billing"
-              : "/sign-up";
+              : "/signup";
 
             return (
               <div

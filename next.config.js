@@ -10,9 +10,6 @@ const nextConfig = {
       },
     ],
   },
-  corethread: {
-    method: multithread,
-  },
   // Reduce build time
   eslint: {
     ignoreDuringBuilds: true,

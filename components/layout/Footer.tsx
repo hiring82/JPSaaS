@@ -51,7 +51,7 @@ export function Footer() {
               出品者向け
             </h4>
             <ul className="space-y-3">
-              <li><Link href="/sign-up" className="footer-link">出品者登録</Link></li>
+              <li><Link href="/signup" className="footer-link">出品者登録</Link></li>
               <li><Link href="/dashboard" className="footer-link">ダッシュボード</Link></li>
               <li><Link href="/help" className="footer-link">ヘルプセンター</Link></li>
             </ul>

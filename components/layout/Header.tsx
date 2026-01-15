@@ -33,12 +33,12 @@ function AuthFallback() {
   return (
     <>
       <Link
-        href="/sign-in"
+        href="/login"
         className="text-gray-600 hover:text-gray-900 text-sm font-medium"
       >
         ログイン
       </Link>
-      <Link href="/sign-up" className="btn btn-primary text-sm">
+      <Link href="/signup" className="btn btn-primary text-sm">
         無料で始める
       </Link>
     </>
@@ -196,12 +196,12 @@ export function Header() {
                       </SignedIn>
                       <SignedOut>
                         <Link
-                          href="/sign-in"
+                          href="/login"
                           className="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
                         >
                           ログイン
                         </Link>
-                        <Link href="/sign-up" className="btn btn-primary text-sm">
+                        <Link href="/signup" className="btn btn-primary text-sm">
                           無料で始める
                         </Link>
                       </SignedOut>
@@ -298,14 +298,14 @@ export function Header() {
                       </SignedIn>
                       <SignedOut>
                         <Link
-                          href="/sign-in"
+                          href="/login"
                           onClick={() => setMobileMenuOpen(false)}
                           className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors"
                         >
                           ログイン
                         </Link>
                         <Link
-                          href="/sign-up"
+                          href="/signup"
                           onClick={() => setMobileMenuOpen(false)}
                           className="block btn btn-primary text-center"
                         >
@@ -318,14 +318,14 @@ export function Header() {
               ) : (
                 <>
                   <Link
-                    href="/sign-in"
+                    href="/login"
                     onClick={() => setMobileMenuOpen(false)}
                     className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 font-medium transition-colors"
                   >
                     ログイン
                   </Link>
                   <Link
-                    href="/sign-up"
+                    href="/signup"
                     onClick={() => setMobileMenuOpen(false)}
                     className="block btn btn-primary text-center"
                   >

@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-var multithread = import('node-cache-multithread');
 
 const nextConfig = {
   images: {

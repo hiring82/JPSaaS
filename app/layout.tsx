@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { jaJP } from "@clerk/localizations";
@@ -105,7 +106,9 @@ export default function RootLayout({
           <a href="#main-content" className="skip-link">
             メインコンテンツへスキップ
           </a>
-          <Header />
+          <Suspense fallback={null}>
+            <Header />
+          </Suspense>
           <main id="main-content" className="flex-1">
             {children}
           </main>

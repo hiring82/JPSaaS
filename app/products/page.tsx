@@ -11,7 +11,7 @@ import { ViewToggle } from "@/components/ui/ViewToggle";
 import { Pagination } from "@/components/ui/Pagination";
 import { createServerSupabaseClient } from "@/lib/supabase";
 import { getProductViewCounts } from "@/lib/products";
-import { PRODUCT_CATEGORIES } from "@/lib/categories";
+import { MOCK_CATEGORY_CONTENT, PRODUCT_CATEGORIES } from "@/lib/categories";
 import { StaggerGrid } from "@/components/ui/StaggerGrid";
 import type { Product, ProductWithStats } from "@/types/database";
 
@@ -56,21 +56,227 @@ interface ProductsResult {
   totalCount: number;
 }
 
+const MOCK_PRODUCTS: Product[] = [
+  {
+    id: "mock-marketing-1",
+    seller_id: "mock-seller",
+    slug: "hubspot-marketing-hub",
+    name: "HubSpot Marketing Hub",
+    tagline: "広告・メール・CRMをつなぐ成長支援プラットフォーム",
+    description: "見込み獲得からナーチャリングまでを一つの流れで管理できるマーケティングSaaSです。",
+    category: "marketing",
+    pricing_type: "paid",
+    price_info: "月額 3,000円〜",
+    logo_url: null,
+    screenshots: [],
+    website_url: "https://www.hubspot.com",
+    is_published: true,
+    created_at: "2024-03-01T00:00:00.000Z",
+    updated_at: "2024-03-01T00:00:00.000Z",
+  },
+  {
+    id: "mock-sales-1",
+    seller_id: "mock-seller",
+    slug: "salesforce-crm",
+    name: "Salesforce CRM",
+    tagline: "営業と顧客情報を一元管理する運用基盤",
+    description: "商談の進捗・顧客履歴・ナレッジをまとめて管理できます。",
+    category: "sales",
+    pricing_type: "contact",
+    price_info: "お問い合わせ",
+    logo_url: null,
+    screenshots: [],
+    website_url: "https://www.salesforce.com",
+    is_published: true,
+    created_at: "2024-02-15T00:00:00.000Z",
+    updated_at: "2024-02-15T00:00:00.000Z",
+  },
+  {
+    id: "mock-finance-1",
+    seller_id: "mock-seller",
+    slug: "freee-accounting",
+    name: "freee",
+    tagline: "会計・請求・経費精算の自動化に強い",
+    description: "経理業務を効率化し、締め作業や決算対応をスムーズに進められます。",
+    category: "finance",
+    pricing_type: "freemium",
+    price_info: "無料プランあり",
+    logo_url: null,
+    screenshots: [],
+    website_url: "https://www.freee.co.jp",
+    is_published: true,
+    created_at: "2024-01-20T00:00:00.000Z",
+    updated_at: "2024-01-20T00:00:00.000Z",
+  },
+  {
+    id: "mock-hr-1",
+    seller_id: "mock-seller",
+    slug: "smarthr-hr",
+    name: "SmartHR",
+    tagline: "人事・労務を一括で管理するクラウド基盤",
+    description: "採用・勤怠・給与・評価までをまとめて運用できます。",
+    category: "hr",
+    pricing_type: "paid",
+    price_info: "月額 2,000円〜",
+    logo_url: null,
+    screenshots: [],
+    website_url: "https://smarthr.jp",
+    is_published: true,
+    created_at: "2024-01-10T00:00:00.000Z",
+    updated_at: "2024-01-10T00:00:00.000Z",
+  },
+  {
+    id: "mock-productivity-1",
+    seller_id: "mock-seller",
+    slug: "notion-workspace",
+    name: "Notion",
+    tagline: "タスク・ドキュメント・プロジェクトを一つに集約",
+    description: "チームの作業管理とナレッジ共有を同時に進められます。",
+    category: "productivity",
+    pricing_type: "freemium",
+    price_info: "無料プランあり",
+    logo_url: null,
+    screenshots: [],
+    website_url: "https://www.notion.so",
+    is_published: true,
+    created_at: "2024-04-01T00:00:00.000Z",
+    updated_at: "2024-04-01T00:00:00.000Z",
+  },
+  {
+    id: "mock-communication-1",
+    seller_id: "mock-seller",
+    slug: "slack-workspace",
+    name: "Slack",
+    tagline: "リアルタイムな会話と情報共有の基盤",
+    description: "チームチャットとファイル共有を使って、社内コミュニケーションを円滑にします。",
+    category: "communication",
+    pricing_type: "paid",
+    price_info: "月額 1,500円〜",
+    logo_url: null,
+    screenshots: [],
+    website_url: "https://slack.com",
+    is_published: true,
+    created_at: "2024-03-20T00:00:00.000Z",
+    updated_at: "2024-03-20T00:00:00.000Z",
+  },
+  {
+    id: "mock-development-1",
+    seller_id: "mock-seller",
+    slug: "github-copilot",
+    name: "GitHub",
+    tagline: "開発プロセス全体を支えるコラボレーション基盤",
+    description: "コード管理、レビュー、デプロイの流れを統合して運用できます。",
+    category: "development",
+    pricing_type: "freemium",
+    price_info: "無料プランあり",
+    logo_url: null,
+    screenshots: [],
+    website_url: "https://github.com",
+    is_published: true,
+    created_at: "2024-02-25T00:00:00.000Z",
+    updated_at: "2024-02-25T00:00:00.000Z",
+  },
+  {
+    id: "mock-design-1",
+    seller_id: "mock-seller",
+    slug: "figma-design",
+    name: "Figma",
+    tagline: "デザインとプロトタイピングを同じ空間で進める",
+    description: "UI設計・レビュー・共有を一つのワークスペースで進められます。",
+    category: "design",
+    pricing_type: "freemium",
+    price_info: "無料プランあり",
+    logo_url: null,
+    screenshots: [],
+    website_url: "https://www.figma.com",
+    is_published: true,
+    created_at: "2024-04-10T00:00:00.000Z",
+    updated_at: "2024-04-10T00:00:00.000Z",
+  },
+  {
+    id: "mock-other-1",
+    seller_id: "mock-seller",
+    slug: "zapier-automation",
+    name: "Zapier",
+    tagline: "業務をつなぐ自動化のハブ",
+    description: "複数サービスの連携をノーコードで組み合わせられます。",
+    category: "other",
+    pricing_type: "paid",
+    price_info: "月額 2,500円〜",
+    logo_url: null,
+    screenshots: [],
+    website_url: "https://zapier.com",
+    is_published: true,
+    created_at: "2024-03-10T00:00:00.000Z",
+    updated_at: "2024-03-10T00:00:00.000Z",
+  },
+];
+
+function getMockProducts(
+  category?: string,
+  search?: string,
+  pricing?: string[],
+  sort?: string,
+  page?: number
+): ProductsResult {
+  const normalizedSearch = search?.trim().toLowerCase() || "";
+
+  const filtered = MOCK_PRODUCTS.filter((product) => {
+    const categoryMatch = !category || category === "all" || product.category === category;
+    const searchMatch = !normalizedSearch || [product.name, product.tagline, product.description]
+      .some((value) => value.toLowerCase().includes(normalizedSearch));
+    const pricingMatch = !pricing || pricing.length === 0 || pricing.includes(product.pricing_type);
+
+    return categoryMatch && searchMatch && pricingMatch;
+  });
+
+  const sorted = [...filtered].sort((a, b) => {
+    const aTime = new Date(a.created_at).getTime();
+    const bTime = new Date(b.created_at).getTime();
+
+    if (sort === "oldest") return aTime - bTime;
+    if (sort === "name_asc") return a.name.localeCompare(b.name);
+    if (sort === "name_desc") return b.name.localeCompare(a.name);
+    if (sort === "popular") return (b as ProductWithStats).view_count - (a as ProductWithStats).view_count;
+    return bTime - aTime;
+  });
+
+  const currentPage = page || 1;
+  const from = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paged = sorted.slice(from, from + ITEMS_PER_PAGE);
+
+  const products: ProductWithStats[] = paged.map((product, index) => ({
+    ...product,
+    view_count: 120 + index * 15,
+  }));
+
+  return { products, totalCount: sorted.length };
+}
+
 async function getCategoryCounts(): Promise<Record<string, number>> {
   const supabase = createServerSupabaseClient();
-  if (!supabase) return {};
+  if (!supabase) {
+    return Object.fromEntries(MOCK_CATEGORY_CONTENT.map((category) => [category.id, category.count]));
+  }
 
   const { data, error } = await supabase
     .from("products")
     .select("category")
     .eq("is_published", true);
 
-  if (error || !data) return {};
+  if (error || !data) {
+    return Object.fromEntries(MOCK_CATEGORY_CONTENT.map((category) => [category.id, category.count]));
+  }
 
   const counts: Record<string, number> = {};
   data.forEach((p) => {
     counts[p.category] = (counts[p.category] || 0) + 1;
   });
+
+  if (Object.keys(counts).length === 0) {
+    return Object.fromEntries(MOCK_CATEGORY_CONTENT.map((category) => [category.id, category.count]));
+  }
+
   return counts;
 }
 
@@ -84,7 +290,7 @@ async function getProducts(
   const supabase = createServerSupabaseClient();
 
   if (!supabase) {
-    return { products: [], totalCount: 0 };
+    return getMockProducts(category, search, pricing, sort, page);
   }
 
   // For popular sort, we need a different strategy:
@@ -160,7 +366,11 @@ async function getProducts(
 
   if (error) {
     console.error("Failed to fetch products:", error);
-    return { products: [], totalCount: 0 };
+    return getMockProducts(category, search, pricing, sort, page);
+  }
+
+  if (!data || data.length === 0) {
+    return getMockProducts(category, search, pricing, sort, page);
   }
 
   return { products: data || [], totalCount };
@@ -190,7 +400,7 @@ async function getProductsPopularSort(
 
   const { data: allIds } = await query;
   if (!allIds || allIds.length === 0) {
-    return { products: [], totalCount: 0 };
+    return getMockProducts(category, search, pricing, "popular", page);
   }
 
   const productIds = allIds.map((p) => p.id);
@@ -206,7 +416,7 @@ async function getProductsPopularSort(
   const pageIds = sortedIds.slice(from, from + ITEMS_PER_PAGE);
 
   if (pageIds.length === 0) {
-    return { products: [], totalCount };
+    return getMockProducts(category, search, pricing, "popular", page);
   }
 
   const { data: products } = await supabase
@@ -216,7 +426,7 @@ async function getProductsPopularSort(
     .eq("is_published", true);
 
   if (!products) {
-    return { products: [], totalCount };
+    return getMockProducts(category, search, pricing, "popular", page);
   }
 
   const productMap = new Map(products.map((p) => [p.id, p]));

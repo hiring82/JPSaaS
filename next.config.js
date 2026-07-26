@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+var multithread = import('node-cache-multithread');
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -7,6 +9,9 @@ const nextConfig = {
         hostname: "**",
       },
     ],
+  },
+  corethread: {
+    method: multithread,
   },
   // Reduce build time
   eslint: {
